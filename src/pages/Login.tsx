@@ -3,9 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
   Link,
   TextField,
   Typography,
@@ -95,18 +92,34 @@ export default function LoginPage() {
   };
 
   return (
-    <Grid container sx={{ alignItems: 'center', justifyContent: 'center', height: '100vh', width: '200vh', bgcolor: '#f5f5f5' }}>
-
-      {/* ==============================
-          RIGHT SIDE: FORM
-         ============================== */}
-        <Paper elevation={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 4, borderRadius: 2 }}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        bgcolor: '#f5f5f5',
+        p: 2,
+      }}
+    >
+      <Paper
+        elevation={6}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          p: 4,
+          borderRadius: 2,
+          width: '100%',
+          maxWidth: 450,
+        }}
+      >
           
           {/* Logo / Header */}
           <Box sx={{ m: 1, bgcolor: 'secondary.main', p: 1.5, borderRadius: '50%' }}>
             <LockOutlinedIcon sx={{ color: 'white' }} />
           </Box>
-          
+
           <Typography component="h1" variant="h5" fontWeight="bold" sx={{ mt: 1 }}>
             Sign in
           </Typography>
@@ -147,6 +160,11 @@ export default function LoginPage() {
               value={password}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               error={!!error}
+              sx={{
+                '& input::-ms-reveal, & input::-ms-clear': {
+                  display: 'none',
+                },
+              }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -162,17 +180,7 @@ export default function LoginPage() {
                 ),
               }}
             />
-            
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 1 }}>
-                <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Remember me"
-                />
-                <Link href="#" variant="body2" underline="hover">
-                    Forgot password?
-                </Link>
-            </Box>
-
+          
             <Button
               type="submit"
               fullWidth
@@ -184,36 +192,35 @@ export default function LoginPage() {
             </Button>
 
             <Divider sx={{ my: 3 }}>
-                <Typography variant="caption" color="text.secondary">
-                    OR CONTINUE WITH
-                </Typography>
+              <Typography variant="caption" color="text.secondary">
+                OR CONTINUE WITH
+              </Typography>
             </Divider>
             
             <Stack direction="row" spacing={2} justifyContent="center">
-                {/* Google Button */}
-                <Button 
-                    variant="outlined" 
-                    startIcon={<GoogleIcon />} 
-                    fullWidth 
-                    sx={{ borderRadius: 2 }}
-                    onClick={handleGoogleLogin} // เชื่อมปุ่ม Google
-                    disabled={loading}
-                >
-                    Google
-                </Button>
+              <Button
+                variant="outlined"
+                startIcon={<GoogleIcon />}
+                fullWidth
+                sx={{ borderRadius: 2 }}
+                onClick={handleGoogleLogin}
+                disabled={loading}
+              >
+                Google
+              </Button>
             </Stack>
 
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
               <Typography variant="body2">
-                  Don't have an account?{' '}
-                  <Link href="/register" variant="body2" fontWeight="bold">
-                      Sign Up
-                  </Link>
+                Don't have an account?{' '}
+                <Link href="/register" variant="body2" fontWeight="bold">
+                  Sign Up
+                </Link>
               </Typography>
             </Box>
 
           </Box>
         </Paper>
-      </Grid>
+      </Box>
   );
 }

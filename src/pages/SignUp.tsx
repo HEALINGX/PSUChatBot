@@ -3,7 +3,6 @@ import { useNavigate, Link as RouterLink } from "react-router-dom";
 import {
   Box,
   Button,
-  Grid,
   Link,
   TextField,
   Typography,
@@ -34,6 +33,8 @@ export default function RegisterPage() {
 
   // --- State ---
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -43,6 +44,8 @@ export default function RegisterPage() {
 
   // --- Logic ---
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowConfirmPassword = () =>
+    setShowConfirmPassword((show) => !show);
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>,
   ) => event.preventDefault();
@@ -189,6 +192,11 @@ export default function RegisterPage() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            sx={{
+              '& input::-ms-reveal, & input::-ms-clear': {
+                display: 'none',
+              },
+            }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -210,10 +218,28 @@ export default function RegisterPage() {
             fullWidth
             name="confirmPassword"
             label="Confirm Password"
-            type={showPassword ? "text" : "password"}
+            type={showConfirmPassword ? "text" : "password"}
             id="confirmPassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            sx={{
+              '& input::-ms-reveal, & input::-ms-clear': {
+                display: 'none',
+              },
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowConfirmPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             error={confirmPassword !== "" && password !== confirmPassword}
             helperText={
               confirmPassword !== "" && password !== confirmPassword

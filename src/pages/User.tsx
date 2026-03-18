@@ -7,7 +7,6 @@ import {
 import SendIcon from '@mui/icons-material/Send';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import PersonIcon from '@mui/icons-material/Person';
-
 import { useAuth } from '../context/AuthContext';
 
 type Message = { id: string | number; role: 'assistant' | 'user'; content: string };
@@ -34,7 +33,7 @@ export default function ChatArea() {
   // Room-specific suggested questions
   const roomQuestionsMap: Record<string, { welcome: string; questions: string[] }> = {
     'cs2564-advisor': {
-      welcome: 'สวัสดีครับ! มีอะไรให้ผมช่วยเกี่ยวกับหลักสูตร CS2546 ไหมครับ?',
+      welcome: 'สวัสดีครับ! มีอะไรให้ผมช่วยเกี่ยวกับหลักสูตร CS2564 ไหมครับ?',
       questions: [
         'หลักสูตร CS ประกอบด้วยวิชาอะไรบ้าง?',
         'ต้องใช้เวลากี่ปีในการจบหลักสูตร CS?',
@@ -123,7 +122,7 @@ export default function ChatArea() {
     setInput('');
     setIsLoading(true);
 
-    const userIdentifier = auth.user?.email || "guest_user";
+    const userIdentifier = auth.user?.uid || "guest_user";
     const activeConversationId = selectedRoomId ? conversationByRoomRef.current[selectedRoomId] : '';
 
     try {
